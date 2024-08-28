@@ -1,0 +1,12 @@
+Django==5.0.7
+psycopg2-binary==2.9.9
+sqlparse==0.5.1
+tzdata==2024.1
+whitenoise==6.7.0
+gunicorn==20.1.0
+django-environ
+Pillow
+google-auth
+google-cloud-storage
+django-storages[google]
+google-cloud-secret-manager
