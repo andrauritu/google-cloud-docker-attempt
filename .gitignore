@@ -1,2 +1,35 @@
+
+
+# Python bytecode files
+__pycache__/
+*.py[cod]
+*.pyc
+*$py.class
+
+# Django specific
+*.log
+*.pot
+*.pyc
+*.so
+*.out
+*.pyo
+*.log
 .env
+
+# Virtual environment
+env/
+venv/
+ENV/
+.venv/
+.ENV/
+
+# Static and media files
+staticfiles/
+media/
+
+# Local SQLite database
+*.sqlite3
+
+# Secrets and credentials
 secrets/
+.env

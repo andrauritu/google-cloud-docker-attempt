@@ -19,26 +19,16 @@ def get_secret(secret_name):
     response = client.access_secret_version(name=name)
     return response.payload.data.decode("UTF-8")
 
-# Check if we're in a Cloud Build environment
-if os.getenv("CLOUD_BUILD") is None:
-    # Only fetch secrets if we're not in Cloud Build
-    django_settings = get_secret("django_settings")
-    env.read_env(io.StringIO(django_settings))
-
-else:
-    # For local development or runtime in the cloud, ensure default values are set
-    django_settings = os.getenv("DJANGO_SETTINGS", "")
-
-    if django_settings:
-        env.read_env(io.StringIO(django_settings))
-    else:
-        # Provide default settings or raise an error if critical settings are missing
-        pass
+# Fetch secrets from Secret Manager or use environment variables
+django_settings = get_secret("django_settings")
+env.read_env(io.StringIO(django_settings))
 
 # Now use the environment variables in settings
 SECRET_KEY = env('SECRET_KEY', default="default-secret-key")
-DEBUG = env.bool('DEBUG', default=False)
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
+# DEBUG = env.bool('DEBUG', default=False)
+DEBUG = True
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1', 'portfolio-service-670894227736.europe-west1.run.app'])
+
 
 DATABASES = {
     'default': env.db(),  # Automatically configures DATABASE_URL from the secret
@@ -47,6 +37,10 @@ DATABASES = {
 GS_BUCKET_NAME = env('GS_BUCKET_NAME')
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 MEDIA_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/"
+CSRF_TRUSTED_ORIGINS = [
+    'https://8001-cs-109655276627-default.cs-europe-west4-bhnf.cloudshell.dev',
+    'https://portfolio-service-670894227736.europe-west1.run.app'
+]
 
 # Application definition
 
