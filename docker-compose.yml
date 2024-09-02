@@ -3,7 +3,7 @@ version: '3.8'
 services:
   web:
     build: .
-    command: gunicorn portfolio.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn portfolio.wsgi:application --bind 0.0.0.0:8080
     volumes:
       - .:/app
       - /cloudsql:/cloudsql  # Mount the Cloud SQL socket
@@ -13,7 +13,7 @@ services:
       GOOGLE_APPLICATION_CREDENTIALS: /app/secrets/django-service-account.json
       
     ports:
-      - "8000:8000"
+      - "8080:8080"
     depends_on:
       - db
     env_file:
@@ -23,7 +23,7 @@ services:
     image: postgres:latest
     environment:
       POSTGRES_DB: portfoliodb
-      POSTGRES_USER: andrauritu
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: numauita
     volumes:
       - postgres_data:/var/lib/postgresql/data/

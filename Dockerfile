@@ -4,7 +4,7 @@ FROM python:3.12-slim
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-ENV GOOGLE_CLOUD_PROJECT=portfolio-website-429814
+# ENV GOOGLE_CLOUD_PROJECT=portfolio-website-429814
 
 # Install PostgreSQL client (not the server)
 RUN apt-get update && apt-get install -y postgresql-client

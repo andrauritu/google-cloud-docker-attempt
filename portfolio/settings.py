@@ -1,47 +1,65 @@
 import os
 from pathlib import Path
 import environ
-from google.cloud import secretmanager
 import io
 
+# Initialize environment variables
 env = environ.Env(
     DEBUG=(bool, False)
 )
 
+# Determine if running in production or locally
+IS_PRODUCTION = os.getenv('GOOGLE_CLOUD_PROJECT') is not None
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-def get_secret(secret_name):
-    client = secretmanager.SecretManagerServiceClient()
-    project_id = os.getenv("GOOGLE_CLOUD_PROJECT")
-    if not project_id:
-        raise Exception("GOOGLE_CLOUD_PROJECT environment variable not set.")
-    name = f"projects/{project_id}/secrets/{secret_name}/versions/latest"
-    response = client.access_secret_version(name=name)
-    return response.payload.data.decode("UTF-8")
+if IS_PRODUCTION:
+    # Import Google Cloud Secret Manager only in production
+    from google.cloud import secretmanager
+    
+    def get_secret(secret_name):
+        client = secretmanager.SecretManagerServiceClient()
+        project_id = os.getenv("GOOGLE_CLOUD_PROJECT")
+        if not project_id:
+            raise Exception("GOOGLE_CLOUD_PROJECT environment variable not set.")
+        name = f"projects/{project_id}/secrets/{secret_name}/versions/latest"
+        response = client.access_secret_version(name=name)
+        return response.payload.data.decode("UTF-8")
+    GS_BUCKET_NAME = env('GS_BUCKET_NAME', default=None)
+    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+    MEDIA_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/"
+    print("it thinks its in prod!")
 
-# Fetch secrets from Secret Manager or use environment variables
-django_settings = get_secret("django_settings")
-env.read_env(io.StringIO(django_settings))
+    # Fetch secrets from Secret Manager
+    django_settings = get_secret("django_settings")
+    env.read_env(io.StringIO(django_settings))
+else:
+    # Load environment variables from .env file in local development
+    env.read_env(os.path.join(BASE_DIR, '.env'))
+    MEDIA_URL = '/media/'
+    print ("it doesnt think its in prod!")
 
 # Now use the environment variables in settings
 SECRET_KEY = env('SECRET_KEY', default="default-secret-key")
-# DEBUG = env.bool('DEBUG', default=False)
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=not IS_PRODUCTION)
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1', 'portfolio-service-670894227736.europe-west1.run.app'])
 
-
 DATABASES = {
-    'default': env.db(),  # Automatically configures DATABASE_URL from the secret
+    'default': env.db(),  # Automatically configures DATABASE_URL
 }
 
-GS_BUCKET_NAME = env('GS_BUCKET_NAME')
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-MEDIA_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/"
+# GS_BUCKET_NAME = env('GS_BUCKET_NAME', default=None)
+
+# if GS_BUCKET_NAME:
+#     DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+#     MEDIA_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/"
+# else:
+#     MEDIA_URL = '/media/'
+
 CSRF_TRUSTED_ORIGINS = [
     'https://8001-cs-109655276627-default.cs-europe-west4-bhnf.cloudshell.dev',
     'https://portfolio-service-670894227736.europe-west1.run.app'
 ]
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -57,7 +75,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add WhiteNoise middleware here
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
