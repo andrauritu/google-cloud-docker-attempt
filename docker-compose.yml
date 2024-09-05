@@ -6,7 +6,6 @@ services:
     command: gunicorn portfolio.wsgi:application --bind 0.0.0.0:8080
     volumes:
       - .:/app
-      - /cloudsql:/cloudsql  # Mount the Cloud SQL socket
       - ./uploads:/app/uploads
       - ./secrets:/app/secrets  # Mount the secrets directory
     environment:
@@ -19,11 +18,12 @@ services:
     env_file:
       - .env
 
+# Commented out since we're using an external DB
   db:
     image: postgres:latest
     environment:
       POSTGRES_DB: portfoliodb
-      POSTGRES_USER: postgres
+      POSTGRES_USER: andrauritu
       POSTGRES_PASSWORD: numauita
     volumes:
       - postgres_data:/var/lib/postgresql/data/

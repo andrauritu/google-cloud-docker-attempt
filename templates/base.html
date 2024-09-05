@@ -6,8 +6,93 @@
     <meta charset="utf-8">
     <title>{% block title %}My Personal Portfolio{% endblock title %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+     {% load static %}
+    <style>
+        body, html {
+            height: 200%;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        #lottie-animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+        }
+        #lottie-animation-container svg {
+            width: auto !important;
+            /* height: auto !important; */
+            transform: translate3d(0px, 0px, 0px);
+            min-width: 100vw;
+            min-height: 100vh;
+        }   
+      
+      
+     
+        .container {
+            overflow: hidden;
+        }
+        p, h1{
+            color: white;
+        }
+      
+    </style>
 </head>
 <body class="container">
-{% block page_content %}{% endblock page_content %}
+
+    <!-- Lottie animation container -->
+    <div id="lottie-animation-container"></div>
+
+    <!-- Page content will be injected here -->
+    {% block page_content %}{% endblock page_content %}
+
+    <!-- Include the Lottie library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.8/lottie.min.js"></script>
+
+    <!-- Custom scroll animation script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+            var animation = lottie.loadAnimation({
+                container: document.getElementById('lottie-animation-container'),
+                renderer: 'svg',
+                loop: false,
+                autoplay: false,
+                path: '{% static "animations/lottie2.json" %}' // Adjust the path to where you store your Lottie JSON file
+            });
+
+            window.addEventListener('scroll', function() {
+                var scrollTop = window.scrollY;
+                var scrollPercent = scrollTop / scrollableHeight;
+
+                var frameCount = animation.totalFrames -1;
+                var frame = Math.round(scrollPercent * frameCount );
+
+                animation.goToAndStop(frame, true);
+            });
+        });
+        
+    </script>
+    <!-- <script>
+        // Fix for mobile viewport height issues
+        function setFullHeight() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', '${vh}px');
+        }
+    
+        // Set the height on load and on resize
+        window.addEventListener('load', setFullHeight);
+        window.addEventListener('resize', setFullHeight);
+    
+        // Use --vh in CSS for the animation container
+        document.getElementById('lottie-animation-container').style.height = 'calc(var(--vh, 1vh) * 100)';
+    </script> -->
+    
+    
 </body>
 </html>
