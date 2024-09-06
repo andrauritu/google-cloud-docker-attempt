@@ -9,14 +9,16 @@
      {% load static %}
     <style>
         body, html {
-            height: 200%;
+            height: auto;
             margin: 0;
             overflow-x: hidden;
+            scroll-behavior: smooth;
+
         }
 
         #lottie-animation-container {
             position: fixed;
-            top: 0;
+            bottom: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
@@ -25,10 +27,11 @@
         }
         #lottie-animation-container svg {
             width: auto !important;
-            /* height: auto !important; */
+            height: auto !important;
             transform: translate3d(0px, 0px, 0px);
             min-width: 100vw;
             min-height: 100vh;
+            transform-origin: bottom left;
         }   
       
       
@@ -67,18 +70,19 @@
             });
 
             window.addEventListener('scroll', function() {
-                var scrollTop = window.scrollY;
-                var scrollPercent = scrollTop / scrollableHeight;
+        var scrollTop = window.scrollY;
+        var scrollPercent = scrollTop / scrollableHeight;
 
-                var frameCount = animation.totalFrames -1;
-                var frame = Math.round(scrollPercent * frameCount );
+        // Scale the scroll percent to slow down the animation progress
+        var slowDownFactor = 0.5; // Adjust this value to slow down the animation (e.g., 0.5 = twice as slow)
+        var frameCount = animation.totalFrames - 1;
+        var frame = Math.round(scrollPercent * frameCount * slowDownFactor); // Multiply by slowDownFactor to slow the animation
 
-                animation.goToAndStop(frame, true);
-            });
-        });
-        
+        animation.goToAndStop(frame, true);
+    });
+});
     </script>
-    <!-- <script>
+    <script>
         // Fix for mobile viewport height issues
         function setFullHeight() {
             const vh = window.innerHeight * 0.01;
@@ -91,7 +95,7 @@
     
         // Use --vh in CSS for the animation container
         document.getElementById('lottie-animation-container').style.height = 'calc(var(--vh, 1vh) * 100)';
-    </script> -->
+    </script>
     
     
 </body>
