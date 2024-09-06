@@ -15,7 +15,7 @@ __pycache__/
 *.pyo
 *.log
 .env
-
+#proba
 # Virtual environment
 env/
 venv/
