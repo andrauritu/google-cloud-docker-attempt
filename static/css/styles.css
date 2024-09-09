@@ -1,0 +1,815 @@
+
+/* p, h1{
+    color: #F8F8FF;
+} */
+
+/* static/css/styles.css */
+/* Set the navbar to be transparent initially */
+.navbar {
+    background: transparent;
+    transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.navbar-brand, .nav-link {
+    color: #F8F8FF !important; /* Make the text #F8F8FF */
+}
+
+.navbar.scrolled {
+    background: rgba(255, 255, 255, 0.045); /* Light transparent background */
+    backdrop-filter: blur(50px); /* Apply blur effect */
+}
+
+.navbar.scrolled .nav-link,
+.navbar.scrolled .navbar-brand {
+    color: #F8F8FF !important; /* Text remains #F8F8FF */
+}
+
+.nav-link, .navbar-brand {
+    font-size: calc(var(--title-font-size) * 0.25) !important; 
+    margin: 0 0.2em;  /* Navbar font size as a fraction of the title size */
+}
+
+
+/* Navbar link hover effect */
+.navbar-nav .nav-link:hover {
+    color: #5edcff !important; /* Turns the text color to cyan on hover */
+}
+
+/* Active link state (this will be controlled dynamically with JavaScript) */
+.navbar-nav .nav-link.active {
+    color: #5edcff !important; /* Keeps the active link cyan */
+}
+
+.navbar-toggler {
+    background-color: rgba(255, 255, 255, 0); /* Set the color of the hamburger icon */
+}
+.navbar-collapse.show {
+    background: rgba(255, 255, 255, 0.051); /* Light transparent background */
+    backdrop-filter: blur(10px); /* Blur effect */
+    transition: background 0.3s ease, backdrop-filter 0.3s ease; /* Smooth transition */
+    padding: 15px; /* Optional: Add some padding for a better look */
+    border-radius: 30px;
+    margin: 10px;
+    font-size: 20px;
+}
+
+@media (max-width: 992px) {
+    .navbar-collapse {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    /* When the navbar is open (expanded), translateX is reset */
+    .navbar-collapse.show {
+        transform: translateX(0);
+    }
+}
+
+
+
+/* Ensure the navbar stays on top of content */
+#home{
+    padding-top: 10rem;
+    padding-bottom: 15rem;
+}
+
+/* For the bold heading (H1) */
+#home h1 {
+    font-family: "Ubuntu", system-ui;
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* For the regular paragraph (P) */
+#home p {
+    font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 0.25em
+  
+}
+
+
+
+.break-line {
+    display: block; /* Forces "I am" to be on its own line */
+}
+
+.name-highlight {
+    color: #5edcff; /* Set the color to gold */
+}
+/* Scroll-down arrow styling */
+/* Scroll-down arrow styling */
+.scroll-down {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+    width: auto; /* Ensure the container has a width */
+    height: auto; /* Ensure the container has a height */
+}
+
+.scroll-down a {
+    text-decoration: none;
+    color: #F8F8FF; /* Adjust the color if necessary */
+    font-size: 2.5rem; /* Set a larger font size for the icon */
+    display: inline-block; /* Ensure the anchor element has dimensions */
+}
+
+/* Arrow bounce animation */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.fa-github {
+    color: #F8F8FF;
+    font-size: 3rem;
+}
+
+.fa-github:hover {
+    color: #5edcff;
+}
+
+.fa-linkedin {
+    color: #F8F8FF;
+    font-size: 3rem;
+    margin: 1rem;
+}
+
+.fa-linkedin:hover {
+    color: #5edcff;
+}
+
+/* For the about section */
+/* About Section Styling */
+#about {
+    background-color: #f8f9fa00;
+    border-radius: 30px;
+    padding: 0;
+}
+
+#about .card-title {
+    font-size: 1.5rem; /* Customize the size of the column titles */
+    color: #253a68;
+    font-family: 'Ubuntu';
+}
+
+#about .card-text {
+    font-size: 1rem;
+    color: #253a68;
+}
+
+#about .btn {
+    width: 100%; /* Make the button fill the width of the card */
+    width: 100%;
+    background-color: #1a2950;
+    border: none;
+    color: #F8F8FF;
+    font-weight: 700;
+    font-family: 'Ubuntu';
+}
+
+#about .btn:hover {
+    background-color: #5edcff; /* Change the background color on hover */
+    transition: background-color 0.3s ease;
+}
+
+#about h2 {
+    font-weight: 200;
+    color: #f8f9fa;
+    FONT-FAMILY: 'OPEN SANS';
+}
+
+.about-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem; /* Adjust as needed */
+    font-weight: bold;
+    color: #F8F8FF; /* Adjust color */
+    text-align: center;
+    position: relative;
+}
+
+.about-title::before,
+.about-title::after {
+    content: '';
+    flex: 1;
+    height: 2px; /* Line thickness */
+    background-color: #F8F8FF; /* Line color */
+}
+
+.about-title::before {
+    margin-right: 15px; /* Space between the line and the text */
+}
+
+.about-title::after {
+    margin-left: 15px; /* Space between the line and the text */
+}
+
+/* For the projects section */
+#projects {
+    background-color: #f8f9fa00;
+    border-radius: 30px;
+    padding: 0;
+}
+/*
+#projects .card-title {
+    font-size: 1.5rem;
+    color: #253a68;
+    font-family: 'Ubuntu';
+}
+
+#projects .card-text {
+    font-size: 1rem;
+    color: #253a68;
+}
+
+#projects .btn {
+    width: 100%; 
+    background-color: #1a2950;
+    border: none;
+    color: #F8F8FF;
+    font-weight: 700;
+    font-family: 'Ubuntu';
+}
+
+#projects .btn:hover {
+    background-color: #5edcff;
+    transition: background-color 0.3s ease;
+}
+*/
+#projects h2 {
+    font-weight: 200;
+    color: #f8f9fa;
+    font-family: 'Open Sans';
+}
+
+.projects-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #F8F8FF;
+    text-align: center;
+    position: relative;
+}
+
+.projects-title::before,
+.projects-title::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background-color: #F8F8FF;
+}
+
+.projects-title::before {
+    margin-right: 15px;
+}
+
+.projects-title::after {
+    margin-left: 15px;
+}
+
+
+.project-card {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #F8F8FF;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.project-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-color: #5edcff; /* Optional light shine effect on hover */
+}
+
+.project-card-link {
+    text-decoration: none; /* Remove underline from clickable card */
+    color: inherit; /* Inherit text color */
+}
+
+.project-name {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #253a68;
+    margin-bottom: 0.5rem;
+}
+
+.project-subtitle{
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #253a68;
+    font-family: 'Open Sans', sans-serif;
+    margin-bottom: 0;
+}
+
+
+.project-description {
+    font-size: 1rem;
+    color: #253a68;
+    margin-bottom: 0;
+}
+
+.project-technologies {
+    font-size: 1rem;
+    color: #253a68;
+    margin-bottom: 0.5rem;
+}
+
+.creation-date {
+    font-size: 1rem;
+    color: #253a68;
+    margin-bottom: 10px;
+}
+
+.btn-view {
+    background-color: #1a2950;
+    border: none;
+    color: #F8F8FF;
+    font-weight: 700;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-view:hover {
+    background-color: #5edcff; /* Hover effect for the button */
+}
+
+/* Make the card shine when hovered over */
+.project-card:hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: translateX(-50%) scaleY(1);
+    transition: all 0.5s ease-in-out;
+}
+
+/* For the contact section */
+#contact {
+    background-color: #f8f9fa00; /* Transparent background */
+    border-radius: 30px;
+    padding: 0;
+}
+#contact h2 {
+    font-weight: 200;
+    color: #F8F8FF;
+    font-family: 'Open Sans';
+}
+
+.contact-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem; /* Adjust as needed */
+    text-align: center;
+    position: relative;
+}
+
+.contact-title::before,
+.contact-title::after {
+    content: '';
+    flex: 1;
+    height: 2px; /* Line thickness */
+    background-color: #F8F8FF; /* Line color */
+}
+
+.contact-title::before {
+    margin-right: 15px; /* Space between the line and the text */
+}
+
+.contact-title::after {
+    margin-left: 15px; /* Space between the line and the text */
+}
+
+h3 {
+    color: #F8F8FF; /* Custom color for subheading */
+    font-family: 'Open Sans', sans-serif;
+}
+
+.contact-details {
+    font-size: 1.2rem;
+    font-family: 'Open Sans', sans-serif;
+    color: #F8F8FF;
+    line-height: 2;
+    font-weight: 400;
+}
+
+.contact-details a {
+    color: #F8F8FF;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.contact-details a:hover {
+    color: #5edcff; /* Hover effect for links */
+}
+
+.contact-details strong {
+    font-weight: 700;
+}
+
+/* Align items center and style text */
+ul.contact-details {
+    padding-left: 0;
+    list-style: none;
+}
+
+
+/* For the form */
+#contact-form h3 {
+    color: #F8F8FF;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.form-control {
+    font-family: 'Ubuntu', sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-control:focus {
+    border-color: #5edcff;
+    box-shadow: 0 0 5px rgba(94, 220, 255, 0.5);
+}
+
+.btn-primary {
+    background-color: #1a2950;
+    border: none;
+    color: #F8F8FF;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #5edcff;
+}
+
+label {
+    color: #F8F8FF;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.2rem;
+}
+
+.texttouser{
+    font-weight: 100;
+}
+
+
+
+#home p, span{
+    color: #F8F8FF;
+}
+
+@media(max-height: 1030px) and (min-width: 1200px){
+    .nav-link, .navbar-brand{
+        font-size: 1.25rem !important;
+    }
+
+}
+
+
+@media (max-width: 362px) {
+    .container{
+        padding: 0 !important
+    }
+    #home h1 {
+        --title-font-size: 2.5rem;
+        font-size: var(--title-font-size);
+    }
+    :root {
+        --title-font-size: 2.5rem !important;
+    }
+    #home p {
+        font-size: 1rem;
+    }
+    #home .fa-github, .fa-linkedin {
+        font-size: 2rem;
+    }
+    .scroll-down {
+        display: none !important;
+    }
+
+    #home {
+        padding-top: 7rem;
+        padding-bottom: 2rem;
+    }
+
+    #about h2{
+        font-size: 2rem;
+    }
+
+    #projects h2{
+        font-size: 2rem;
+    }
+
+    #contact h2{
+        font-size: 2rem;
+    }
+
+   
+}
+
+
+@media (min-width: 362px) and (max-width: 576px) {
+    
+    .container{
+        padding: 0 !important
+    }
+    #home h1 {
+        --title-font-size: 3rem;
+        font-size: var(--title-font-size);
+    }
+    :root {
+        --title-font-size: 3rem !important;
+    }
+
+    #home p {
+        font-size: 1.25rem;
+    }
+    #home .fa-github, .fa-linkedin {
+        font-size: 2.5rem;
+    }
+    .scroll-down {
+        display: none !important;
+    }
+
+    #home {
+        padding-top: 10rem;
+        padding-bottom: 2rem;
+    }
+}
+
+
+@media (min-width: 576px) and (max-width: 768px) {
+    .container{
+        padding: 0 !important
+    }
+    #home h1 {
+        --title-font-size: 3rem;
+        font-size: var(--title-font-size);
+    }
+    :root {
+        --title-font-size: 3rem !important;
+    }
+    #home p {
+        font-size: 1.5rem;
+    }
+    #home .fa-github, .fa-linkedin {
+        font-size: 3rem;
+    }
+    .scroll-down{
+        display: none !important;
+    }
+
+    #home {
+        padding-top: 10rem;
+        padding-bottom: 1rem;
+    }
+}
+
+/* Styles for screens smaller than 576px */
+@media (max-width: 576px) {
+    /* Stack the columns vertically instead of side-by-side */
+    .project-card {
+        display: block !important; /* Change the display to block */
+    }
+    
+    .left-column, 
+    .right-column {
+        display: block; /* Make columns stack vertically */
+        width: 100%; /* Ensure full width for both columns */
+        text-align: left; /* Left-align text */
+    }
+
+    .right-column {
+        margin-top: 10px; /* Add some space between the columns */
+        text-align: left !important; /* Ensure text is left-aligned */
+    }
+
+    .creation-date {
+        margin-bottom: 5px; /* Add some margin to the creation date */
+    }
+
+    .btn-view {
+        margin-top: 10px; /* Add some margin to the button */
+    }
+}
+
+
+@media (min-height: 750px) and (min-width: 768px) {
+   #about{
+       margin-top: 8rem;
+   }
+
+    
+}
+
+@media (min-height: 890px) and (min-width: 768px) {
+    #about{
+        margin-top: 8rem;
+    }
+    #home{
+        padding-top: 13rem;
+    }
+     
+ }
+
+ @media (min-height: 928px) and (min-width: 768px) {
+    #about{
+        margin-top: 13rem;
+    }
+     
+ }
+
+    @media (min-height: 1024px) and (min-width: 768px) {
+        #about{
+            margin-top: 13rem;
+        }
+        #home{
+            padding-top: 17rem;
+        }
+        #home h1 {
+            --title-font-size: 6rem;
+            font-size: var(--title-font-size);
+        }
+        :root {
+            --title-font-size: 6rem !important;
+        }
+        
+    }
+
+    @media (min-height: 1124px) and (min-width: 768px) {
+        #about{
+            margin-top: 15rem;
+        }
+        #home{
+            padding-top: 18rem;
+        }
+        #home h1 {
+            --title-font-size: 7rem;
+            font-size: var(--title-font-size);
+        }
+        :root {
+            --title-font-size: 7rem !important;
+        }
+        
+    }
+
+    @media (min-height: 1214px) and (min-width: 768px) {
+        #about{
+            margin-top: 15rem;
+        }
+        #home{
+            padding-top: 20rem;
+        }
+        #home h1 {
+            --title-font-size: 8rem;
+            font-size: var(--title-font-size);
+        }
+        :root {
+            --title-font-size: 8rem !important;
+        }
+        
+    }
+ 
+ 
+    @media (min-height: 1214px) and (min-width: 768px) {
+        #about{
+            margin-top: 17rem;
+        }
+        #home{
+            padding-top: 20rem;
+        }
+        #home h1 {
+            --title-font-size: 8rem;
+            font-size: var(--title-font-size);
+        }
+
+        :root {
+            --title-font-size: 8rem !important;
+        }
+        
+    }
+ 
+ 
+    @media (min-height: 1214px) and (min-width: 768px) {
+        #about{
+            margin-top: 19rem;
+        }
+        #home{
+            padding-top: 22rem;
+        }
+        #home h1 {
+            --title-font-size: 8rem;
+            font-size: var(--title-font-size);
+        }
+        :root {
+            --title-font-size: 8rem !important;
+        }
+        
+    }
+ 
+ 
+    @media (min-height: 1377px) and (min-width: 768px) {
+        #about{
+            margin-top: 20rem;
+        }
+        #home{
+            padding-top: 24rem;
+        }
+        #home h1 {
+            --title-font-size: 8rem;
+            font-size: var(--title-font-size);
+        }
+        :root {
+            --title-font-size: 8rem !important;
+        }
+        
+        .container{
+            padding: 0 !important;
+        }
+        html{
+            padding: 0 !important;
+        }
+
+    }
+    @media (min-height: 1420px) and (min-width: 768px) {
+        #about{
+            margin-top: 20rem;
+        }
+        #home{
+            padding-top: 24rem;
+        }
+        #home h1 {
+            --title-font-size: 9rem; /* Set the base font size for the title */
+            font-size: var(--title-font-size);
+        }
+        :root {
+            --title-font-size: 9rem !important; /* Smaller font size for mobile devices */
+        }
+
+        .sectioncontainer{
+            max-width: 100%;
+        }
+        .maincontainer{
+            min-width: 70%;
+        }
+        
+        .container{
+            padding: 0 !important;
+        }
+        html{
+            padding: 0 !important;
+        }
+
+    }
+
+ 
+    @media (min-height: 1900px) and (min-width: 3000px) {
+        #about{
+            margin-top: 35rem;
+        }
+        #home{
+            padding-top: 30rem;
+        }
+        #home h1 {
+            --title-font-size: 14rem; /* Set the base font size for the title */
+            font-size: var(--title-font-size);
+        }
+        :root {
+            --title-font-size: 14rem !important; /* Smaller font size for mobile devices */
+        }
+        
+        .sectioncontainer{
+            max-width: 100%;
+        }
+        .maincontainer{
+            min-width: 60%;
+        }
+
+        html{
+            padding: 0 !important;
+        }
+
+    }
+    

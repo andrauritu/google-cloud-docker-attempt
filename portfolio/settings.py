@@ -25,14 +25,16 @@ if IS_PRODUCTION:
         name = f"projects/{project_id}/secrets/{secret_name}/versions/latest"
         response = client.access_secret_version(name=name)
         return response.payload.data.decode("UTF-8")
-    GS_BUCKET_NAME = env('GS_BUCKET_NAME', default=None)
-    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-    MEDIA_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/"
+   
     print("it thinks its in prod!")
 
     # Fetch secrets from Secret Manager
     django_settings = get_secret("django_settings")
     env.read_env(io.StringIO(django_settings))
+
+    GS_BUCKET_NAME = env('GS_BUCKET_NAME', default=None)
+    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+    MEDIA_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/"
 else:
     # Load environment variables from .env file in local development
     env.read_env(os.path.join(BASE_DIR, '.env'))
@@ -65,12 +67,17 @@ CSRF_TRUSTED_ORIGINS = [
 INSTALLED_APPS = [
     "pages.apps.PagesConfig",
     "projects.apps.ProjectsConfig",
+    'about.apps.AboutConfig',        # Same for the 'about' app
+    'home.apps.HomeConfig',          # Same for the 'home' app
+    'contact.apps.ContactConfig',    # Same for the 'contact' app
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor',
+
 ]
 
 MIDDLEWARE = [
@@ -147,3 +154,14 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': [
+            'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
+            'blockQuote', 'insertTable', 'mediaEmbed', 'undo', 'redo',
+        ],
+        'height': 300,
+        'width': 'auto',
+    }
+}

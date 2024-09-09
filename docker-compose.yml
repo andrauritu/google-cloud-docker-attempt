@@ -8,6 +8,8 @@ services:
       - .:/app
       - ./uploads:/app/uploads
       - ./secrets:/app/secrets  # Mount the secrets directory
+      - ./static:/app/static
+      - ./templates:/app/templates
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: /app/secrets/django-service-account.json
       

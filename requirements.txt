@@ -10,3 +10,4 @@ google-auth
 google-cloud-storage
 django-storages[google]
 google-cloud-secret-manager
+django-ckeditor==6.7.1
