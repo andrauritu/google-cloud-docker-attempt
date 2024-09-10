@@ -1,8 +1,69 @@
 {% extends "base.html" %}
+
 {% block page_content %}
-    <section>
-        <h2 class="display-1">Personal life</h2>
-        <p>Here, you can describe your life in detail.</p>
-        <!-- Add more details here -->
-    </section>
+<section class="py-5 text-light">
+    <h2 class="text-center py-3 display-5">Personal</h2>
+
+    <!-- Loop through each personal section -->
+    <div class="container">
+    {% for section in sections %}
+        <div class="row justify-content-between personal-section mb-5 mt-2">
+            {% if section.image1 and not section.image2 and not section.image3 and not section.image4 %}
+                <!-- Single image layout (image parallel to text) -->
+                
+                <div class="col-lg-8 col-12">
+                    <h3>{{ section.name }}</h3>
+                    <p>{{ section.description|safe }}</p>
+                  
+                </div>
+                <div class="col-lg-4 col-12 personalsingleimg">
+                        <img src="{{ section.image1.url }}" class="img-fluid" alt="{{ section.name }}">
+                    
+                </div>
+                {% if section.extra %}
+                    <p>{{ section.extra|safe }}</p>
+                {% endif %}
+        </div>
+                
+            {% else %}
+                <!-- Multiple images layout (responsive grid for 2, 3, 4 images) -->
+                <div class="col-12 mb-3">
+                    <h3>{{ section.name }}</h3>
+                    <p>{{ section.description|safe }}</p>
+                    
+                </div>
+
+                <!-- Image grid for 2, 3, or 4 images -->
+                <div class="col-12">
+                    <div class="row justify-content-between text-center">
+                        {% if section.image1 %}
+                        <div class="col-12 col-sm-6 col-lg-3 mb-3 personalimg">
+                                <img src="{{ section.image1.url }}" class="img-fluid" alt="{{ section.name }}">
+                        </div>
+                        {% endif %}
+                        {% if section.image2 %}
+                        <div class="col-12 col-sm-6 col-lg-3 mb-3 personalimg">
+                                <img src="{{ section.image2.url }}" class="img-fluid" alt="{{ section.name }}">
+                        </div>
+                        {% endif %}
+                        {% if section.image3 %}
+                        <div class="col-12 col-sm-6 col-lg-3 mb-3 personalimg text-center">
+                                <img src="{{ section.image3.url }}" class="img-fluid" alt="{{ section.name }}">
+                        </div>
+                        {% endif %}
+                        {% if section.image4 %}
+                        <div class="col-12 col-sm-6 col-lg-3 mb-3 personalimg">
+                                <img src="{{ section.image4.url }}" class="img-fluid" alt="{{ section.name }}">
+                        </div>
+                        {% endif %}
+                        {% if section.extra %}
+                        <p>{{ section.extra|safe }}</p>
+                    {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+</section>
 {% endblock %}

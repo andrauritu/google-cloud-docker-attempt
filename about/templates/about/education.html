@@ -1,8 +1,123 @@
 {% extends "base.html" %}
+
 {% block page_content %}
-    <section>
-        <h2>Education</h2>
-        <p>Here, you can describe your education in detail.</p>
-        <!-- Add more details here -->
-    </section>
+<section class="py-5 text-light">
+    <h2 class="text-center py-3 display-5">Education</h2>
+
+    <!-- Loop through each education section -->
+    <div class="container">
+    {% for section in sections %}
+        <div class="row edusection mb-5 mt-2">
+            <!-- Alternate image position -->
+        {% if forloop.counter|divisibleby:"2" %}
+            <!-- Image on the left -->
+            {% if section.image %}
+
+            <div class=" col-md-4 d-none d-md-block imagecol">
+                <a href="{{ section.image.url }}">
+                    <img src="{{ section.image.url }}" class="img-fluid" alt="{{ section.name }}">
+                </a>
+            </div>
+            <div class="col-md-8">
+                <h3>{{ section.name }}</h3>
+                <div class=" col-md-4 d-block d-md-none imagecol">
+                    <a href="{{ section.image.url }}">
+                        <img src="{{ section.image.url }}" class="img-fluid" alt="{{ section.name }}">
+                    </a>
+                </div>
+                {% if section.extra1 %}
+                <p> {{ section.extra1|safe }}</p>
+                {% endif %}
+                {% if section.specialisation %}
+                <p><strong>Specialisation:</strong> {{ section.specialisation }}</p>
+                {% endif %}
+                {% if section.gpa %}
+                <p><strong>GPA:</strong> {{ section.gpa }}</p>
+                {% endif %}
+                {% if section.relevant_subjects %}
+                <p><strong>Relevant Subjects:</strong> {{ section.relevant_subjects|safe }}</p>
+                {% endif %}
+                {% if section.extra2 %}
+                <p>{{ section.extra2|safe }}</p>
+                {% endif %}
+            </div>
+            <!-- No image -->
+            {% else %}
+            <div class="col-12 text-center">
+                <h3>{{ section.name }}</h3>
+                {% if section.extra1 %}
+                <p> {{ section.extra1|safe }}</p>
+                {% endif %}
+                {% if section.specialisation %}
+                <p><strong>Specialisation:</strong> {{ section.specialisation }}</p>
+                {% endif %}
+                {% if section.gpa %}
+                <p><strong>GPA:</strong> {{ section.gpa }}</p>
+                {% endif %}
+                {% if section.relevant_subjects %}
+                <p><strong>Relevant Subjects:</strong> {{ section.relevant_subjects|safe }}</p>
+                {% endif %}
+                {% if section.extra %}
+                <p>{{ section.extra|safe }}</p>
+                {% endif %}
+
+            {% endif %}
+
+        {% else %}
+            <!-- Image on the right -->
+            {% if section.image %}
+
+            <div class="col-md-8">
+                <h3>{{ section.name }}</h3>
+                <div class="col-md-4 d-md-none d-block imagecol">
+                    <img src="{{ section.image.url }}" class="img-fluid" alt="{{ section.name }}">
+                </div>
+                {% if section.extra1 %}
+                <p> {{ section.extra1|safe }}</p>
+                {% endif %}
+                {% if section.specialisation %}
+                <p><strong>Specialisation:</strong> {{ section.specialisation }}</p>
+                {% endif %}
+             
+                {% if section.gpa %}
+                <p><strong>GPA:</strong> {{ section.gpa }}</p>
+                {% endif %}
+                {% if section.relevant_subjects %}
+                <p><strong>Relevant Subjects:</strong> {{ section.relevant_subjects|safe }}</p>
+                {% endif %}
+                {% if section.extra2 %}
+                <p> {{ section.extra2|safe }}</p>
+                {% endif %}
+            </div>
+            <div class="col-md-4 d-none d-md-block imagecol">
+                <img src="{{ section.image.url }}" class="img-fluid" alt="{{ section.name }}">
+            </div>
+            <!-- No image -->
+            {% else %}
+            <div class="col-12 text-center">
+                <h3>{{ section.name }}</h3>
+                {% if section.extra1 %}
+                <p> {{ section.extra1|safe }}</p>
+                {% endif %}
+                {% if section.specialisation %}
+                <p><strong>Specialisation:</strong> {{ section.specialisation }}</p>
+                {% endif %}
+                {% if section.gpa %}
+                <p><strong>GPA:</strong> {{ section.gpa }}</p>
+                {% endif %}
+                {% if section.relevant_subjects %}
+                <p><strong>Relevant Subjects:</strong> {{ section.relevant_subjects|safe }}</p>
+                {% endif %}
+                {% if section.extra %}
+                <p>{{ section.extra|safe }}</p>
+                {% endif %}
+            </div>
+
+            {% endif %}
+
+        {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+</section>
 {% endblock %}

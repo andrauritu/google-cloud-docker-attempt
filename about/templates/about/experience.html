@@ -1,8 +1,83 @@
 {% extends "base.html" %}
+
 {% block page_content %}
-    <section>
-        <h2>Work Experience</h2>
-        <p>Here, you can describe your work experience in detail.</p>
-        <!-- Add more details here -->
-    </section>
+<section class="py-5 text-light aboutpages">
+    <h2 class="text-center py-3 display-5">Experience</h2>
+
+    <!-- Loop through each experience section -->
+    <div class="container ">
+    {% for section in sections %}
+        <div class="row edusection mb-5 mt-2">
+            <!-- Alternate image position -->
+        {% if forloop.counter|divisibleby:"2" %}
+            <!-- Image on the left -->
+            {% if section.image %}
+
+            <div class="col-md-4 d-none d-md-block imagecol">
+                <a href="{{ section.website }}">
+                    <img src="{{ section.image.url }}" class="img-fluid" alt="{{ section.name }}">
+                </a>
+            </div>
+            <div class="col-md-8">
+                <h3>{{ section.name }}</h3>
+                <div class="col-md-4 d-block d-md-none imagecol">
+                    <a href="{{ section.website }}">
+                        <img src="{{ section.image.url }}" class="img-fluid" alt="{{ section.name }}">
+                    </a>
+                </div>
+                {% if section.description %}
+                <p> {{ section.description|safe }}</p>
+                {% endif %}
+               
+            </div>
+            <!-- No image -->
+            {% else %}
+            <div class="col-12 text-center">
+                <h3>{{ section.name }}</h3>
+                {% if section.description %}
+                <p> {{ section.description|safe }}</p>
+                {% endif %}
+                
+            </div>
+
+            {% endif %}
+
+        {% else %}
+            <!-- Image on the right -->
+            {% if section.image %}
+
+            <div class="col-md-8">
+                <h3>{{ section.name }}</h3>
+                <div class="col-md-4 d-block d-md-none imagecol">
+                    <a href="{{ section.website }}">
+                        <img src="{{ section.image.url }}" class="img-fluid" alt="{{ section.name }}">
+                    </a>
+                </div>
+                {% if section.description %}
+                <p> {{ section.description|safe }}</p>
+                {% endif %}
+               
+            </div>
+            <div class="col-md-4 d-none d-md-block imagecol">
+                <a href="{{ section.website }}">
+                    <img src="{{ section.image.url }}" class="img-fluid" alt="{{ section.name }}">
+                </a>
+            </div>
+            <!-- No image -->
+            {% else %}
+            <div class="col-12 text-center">
+                <h3>{{ section.name }}</h3>
+                {% if section.description %}
+                <p> {{ section.description|safe }}</p>
+                {% endif %}
+               
+            </div>
+
+            {% endif %}
+
+        {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+</section>
 {% endblock %}
