@@ -866,3 +866,55 @@ label {
     }
 }
 
+/* for the project page */
+.technology-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;  /* Space between pills */
+    justify-content: flex-end;
+}
+
+@media (max-width: 992px) {
+    .technology-container {
+        justify-content: center;
+    }
+}
+
+.tech-pill {
+    padding: 5px 15px;
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid #f8f9fa;
+    border-radius: 30px;  /* Rounded corners for the pill shape */
+    font-size: 16px;
+    color: #f8f9fa;
+    display: inline-block;
+}
+ 
+.tech-pill:hover {
+    transform: translateY(-2px);
+}
+
+.titlesectionproject{
+    text-align: justify !important;
+}
+
+iframe{
+    min-width: 100%;
+    min-height: 15rem;
+}
+.btn-secondary {
+    background-color: #5edcff;
+
+    border: none;
+    color: #1a2950;
+    font-weight: 700;
+  
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+
+}
+
+.btn-secondary:hover {
+    background-color: #1a2950; /* Hover effect for the button */
+    
+}

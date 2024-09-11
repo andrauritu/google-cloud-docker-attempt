@@ -1,10 +1,159 @@
 {% extends "base.html" %}
+{% load custom_filters %}
+
 
 {% block page_content %}
-<h1>Project Detail Page</h1>
+<section class="py-5">
+    <div class="container text-light mt-5">
 
-  <h1>{{ project.name }}</h1>
-  <p>{{ project.description }}</p>
-  <p>Technologies: {{ project.technologies }}</p>
-  <p>Date: {{ project.date }}</p>
+        <!-- Row 1: Project Info and YouTube/Main Image -->
+        <div class="row mb-4">
+            <div class="col-lg-6 titlesectionproject ">
+                <h1>{{ project.name }}</h1>
+                <p><strong>Date:</strong> {{ project.date }}</p>
+                <p>
+                {% if project.website %}
+                    <a href="{{ project.website }}" target="_blank" class="btn btn-primary">Visit Website</a>
+                {% endif %}
+                {% if project.github %}
+                    <a href="{{ project.github }}" target="_blank" class="btn btn-secondary">View on GitHub</a>
+                {% endif %}
+                </p>
+                <p>{{ project.longdescription|safe }}</p>
+            </div>
+            <div class="col-lg-6 text-lg-end democolumn">
+                {% if project.youtubedemo %}
+                    <div class="embed-responsive embed-responsive-16by9 mb-3">
+                        <iframe class="embed-responsive-item" src="{{ project.youtubedemo | youtube_embed }}" allowfullscreen></iframe>
+                    </div>
+                {% elif project.image %}
+                    <img src="{{ project.image.url }}" class="img-fluid mb-3" alt="{{ project.name }}">
+                {% endif %}
+                <div class="technology-container ">
+                  {% for tech in technologies %}
+                      <span class="tech-pill">{{ tech }}</span>
+                  {% endfor %}
+              </div>
+              
+              
+            </div>
+        </div>
+
+        <!-- Row 2: Extra1 (Full Width) -->
+        {% if project.extra1 %}
+        <div class="row mb-4">
+            <div class="col-12">
+                <p>{{ project.extra1|safe }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Row 3: Photo1 and Photo2 -->
+        <div class="row mb-4">
+          {% if project.photo1 %}
+          <div class="col-md-6 text-center">
+              <div class="card">
+                  <img src="{{ project.photo1.url }}" class="card-img-top img-fluid" alt="{{ project.photo1caption }}">
+                  <div class="card-body">
+                      {% if project.photo1caption %}
+                          <p class="card-text text-center">{{ project.photo1caption }}</p>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+          {% endif %}
+          
+          {% if project.photo2 %}
+          <div class="col-md-6 text-center pt-5 pt-md-0">
+              <div class="card">
+                  <img src="{{ project.photo2.url }}" class="card-img-top img-fluid" alt="{{ project.photo2caption }}">
+                  <div class="card-body">
+                      {% if project.photo2caption %}
+                          <p class="card-text text-center">{{ project.photo2caption }}</p>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+          {% endif %}
+      </div>
+      
+      <!-- Row 4: Extra2 (Full Width) -->
+      {% if project.extra2 %}
+      <div class="row mb-4">
+          <div class="col-12">
+              <p>{{ project.extra2|safe }}</p>
+          </div>
+      </div>
+      {% endif %}
+      
+      <!-- Row 5: Photo3 and Photo4 -->
+      <div class="row mb-4">
+          {% if project.photo3 %}
+          <div class="col-md-6 text-center">
+              <div class="card">
+                  <img src="{{ project.photo3.url }}" class="card-img-top img-fluid" alt="{{ project.photo3caption }}">
+                  <div class="card-body">
+                      {% if project.photo3caption %}
+                          <p class="card-text text-center">{{ project.photo3caption }}</p>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+          {% endif %}
+          
+          {% if project.photo4 %}
+          <div class="col-md-6 text-center pt-5 pt-md-0">
+              <div class="card">
+                  <img src="{{ project.photo4.url }}" class="card-img-top img-fluid" alt="{{ project.photo4caption }}">
+                  <div class="card-body">
+                      {% if project.photo4caption %}
+                          <p class="card-text text-center">{{ project.photo4caption }}</p>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+          {% endif %}
+      </div>
+      
+      <!-- Row 6: Extra3 (Full Width) -->
+      {% if project.extra3 %}
+      <div class="row mb-4">
+          <div class="col-12">
+              <p>{{ project.extra3|safe }}</p>
+          </div>
+      </div>
+      {% endif %}
+      
+      <!-- Row 7: Photo5 and Photo6 -->
+      <div class="row mb-4">
+          {% if project.photo5 %}
+          <div class="col-md-6 text-center">
+              <div class="card">
+                  <img src="{{ project.photo5.url }}" class="card-img-top img-fluid" alt="{{ project.photo5caption }}">
+                  <div class="card-body">
+                      {% if project.photo5caption %}
+                          <p class="card-text text-center">{{ project.photo5caption }}</p>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+          {% endif %}
+          
+          {% if project.photo6 %}
+          <div class="col-md-6 text-center pt-5 pt-md-0">
+              <div class="card">
+                  <img src="{{ project.photo6.url }}" class="card-img-top img-fluid" alt="{{ project.photo6caption }}">
+                  <div class="card-body">
+                      {% if project.photo6caption %}
+                          <p class="card-text text-center">{{ project.photo6caption }}</p>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+          {% endif %}
+      </div>
+      
+
+    </div>
+</section>
 {% endblock %}
